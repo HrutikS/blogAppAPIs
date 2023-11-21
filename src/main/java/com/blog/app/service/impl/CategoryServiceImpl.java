@@ -1,4 +1,4 @@
-package com.blog.app.services;
+package com.blog.app.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +11,7 @@ import com.blog.app.entities.Category;
 import com.blog.app.exceptions.ResourceNotFoundException;
 import com.blog.app.payloads.CategoryDto;
 import com.blog.app.repositories.CategoryRepository;
+import com.blog.app.services.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{

@@ -1,4 +1,4 @@
-package com.blog.app.services;
+package com.blog.app.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.blog.app.entities.User;
 import com.blog.app.payloads.UserDto;
 import com.blog.app.repositories.UserRepository;
+import com.blog.app.services.UserService;
 import com.blog.app.exceptions.ResourceNotFoundException;
 
 

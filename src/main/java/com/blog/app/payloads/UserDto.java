@@ -17,8 +17,6 @@ public class UserDto {
 	
 	private int userId;
 	
-//	private int roleId;
-	
 	@NotEmpty
 	@Size(min = 3, message = "Username must contain atleast three characters !!")
 	private String userName;
