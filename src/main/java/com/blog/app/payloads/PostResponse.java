@@ -15,7 +15,7 @@ public class PostResponse {
 	
 	private Integer pageNumber;
 	
-	private Integer pageSize = 5;
+	private Integer pageSize;
 	
 	private long totalPosts;
 	
