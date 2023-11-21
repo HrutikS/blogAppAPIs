@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CategoryDto {
 	
-	private Integer categoryId;
+	private int categoryId;
 	
 	@NotEmpty
 	@Size(min = 4, message = "Title must contain minimum four characters")
