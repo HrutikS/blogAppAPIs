@@ -2,6 +2,8 @@ package com.blog.app.payloads;
 
 import java.util.List;
 
+import com.blog.app.exceptions.ResourceNotFoundException;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +17,15 @@ public class PostResponse {
 	
 	private Integer pageNumber;
 	
-	private Integer pageSize = 5;
+	private Integer pageSize;
 	
 	private long totalPosts;
 	
 	private Integer totalPages;
 	
 	private boolean lastPage;
-
+	
+	public void noPostsForKeyword(String resourceName, String fieldName, String fieldValue) {
+		throw new ResourceNotFoundException(resourceName, fieldName, fieldValue);
+	}
 }

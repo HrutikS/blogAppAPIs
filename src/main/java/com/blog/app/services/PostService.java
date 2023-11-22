@@ -1,26 +1,31 @@
 package com.blog.app.services;
 
-import java.util.List;
-
 import com.blog.app.payloads.PostDto;
 import com.blog.app.payloads.PostResponse;
 
 public interface PostService {
 	
+	//to create a new post
 	PostDto createPost(PostDto postDto, Integer userId, Integer categoryId);
 	
+	//to update existing post
 	PostDto updatePost(PostDto postDto, Integer postId);
 	
+	//to delete a post 
 	void deletePost(Integer postId);
+
+	//to get all posts
+	PostResponse getAllPosts(Integer pageNumber, String sortBy, String sortDirection);
 	
-	PostResponse getAllPosts(Integer pageNumber);
-	
+	//to get post by postId
 	PostDto getPostById(Integer postId);
 	
-	List<PostDto> getPostsByCategory(Integer categoryId);
+	//to get posts by specific category	
+	PostResponse getPostsByCategory(Integer categoryId, Integer pageNumber, String sortBy, String sortDirection);
 	
-	List<PostDto> getPostsByUser(Integer userId);
+	//to get posts by specific user
+	PostResponse getPostsByUser(Integer userId, Integer pageNumber, String sortBy, String sortDirection);
 	
-//	List<PostDto> getPostBySearch(String keyword);
-
+	//To get posts containing specific keyword
+	PostResponse getPostsBySearch(String keyword, Integer pageNumber, String sortBy, String sortDirection);
 }
