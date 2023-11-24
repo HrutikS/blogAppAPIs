@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.blog.app.config.AppConstants;
 import com.blog.app.entities.Category;
 import com.blog.app.entities.Post;
 import com.blog.app.entities.User;
@@ -37,9 +38,7 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-
-	private Integer defaultPageSize = 5;
-
+	
 	
 	//to create a new post
 	@Override
@@ -192,7 +191,7 @@ public class PostServiceImpl implements PostService {
 		// Sorting posts
 		Sort sort = (sortDirection.equalsIgnoreCase("asc")) ? (Sort.by(sortBy).ascending()) : (Sort.by(sortBy).descending());
 		// Pagination implementation
-		Pageable pageable = PageRequest.of(pageNumber, defaultPageSize, sort);
+		Pageable pageable = PageRequest.of(pageNumber, AppConstants.PAGE_SIZE, sort);
 		return pageable;
 	}
 	
@@ -202,7 +201,7 @@ public class PostServiceImpl implements PostService {
 		// Setting post response
 		postResponse.setPosts(listOfPostDtos);
 		postResponse.setPageNumber(pageOfPosts.getNumber());
-		postResponse.setPageSize(defaultPageSize);
+		postResponse.setPageSize(AppConstants.PAGE_SIZE);
 		postResponse.setTotalPosts(pageOfPosts.getTotalElements());
 		postResponse.setTotalPages(pageOfPosts.getTotalPages());
 		postResponse.setLastPage(pageOfPosts.isLast());

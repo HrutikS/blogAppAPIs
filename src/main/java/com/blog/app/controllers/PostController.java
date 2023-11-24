@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.app.config.AppConstants;
 import com.blog.app.payloads.ApiResponse;
 import com.blog.app.payloads.PostDto;
 import com.blog.app.payloads.PostResponse;
@@ -54,9 +55,9 @@ public class PostController {
 	
 	//Get All Post
 	@GetMapping("/posts")
-	public ResponseEntity<PostResponse> getAllPosts(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-													@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-													@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection){
+	public ResponseEntity<PostResponse> getAllPosts(@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+													@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+													@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection){
 		
 		PostResponse postResponse = postService.getAllPosts(pageNumber, sortBy, sortDirection);
 		return new ResponseEntity<PostResponse>(postResponse,HttpStatus.OK);
@@ -73,9 +74,9 @@ public class PostController {
 	//Get Posts by Category
 	@GetMapping("/category/{categoryId}/posts")
 	public ResponseEntity<PostResponse> getPostsByCategory(@PathVariable Integer categoryId,
-															@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-															@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-															@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection){
+															@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+															@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+															@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection){
 		PostResponse listOfFetchedPost = postService.getPostsByCategory(categoryId, pageNumber, sortBy, sortDirection);
 		return new ResponseEntity<PostResponse>(listOfFetchedPost, HttpStatus.OK);
 	}
@@ -83,9 +84,9 @@ public class PostController {
 	//Get Posts by User
 	@GetMapping("/user/{userId}/posts")
 	public ResponseEntity<PostResponse> getPostsByUser(@PathVariable Integer userId,
-														@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-														@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-														@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection){
+														@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+														@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+														@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection){
 		PostResponse listOfFetchedPost = postService.getPostsByUser(userId, pageNumber, sortBy, sortDirection);
 		return new ResponseEntity<PostResponse>(listOfFetchedPost, HttpStatus.OK);
 	}
@@ -93,9 +94,9 @@ public class PostController {
 	//Get Posts by Searching keyword
 	@GetMapping("/posts/search/{keyword}")
 	public ResponseEntity<PostResponse> getPostsBySearch(@PathVariable String keyword,
-														@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-														@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-														@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection){
+														@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+														@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+														@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection){
 		PostResponse listOfFetchedPost = postService.getPostsBySearch(keyword, pageNumber, sortBy, sortDirection);
 		return new ResponseEntity<PostResponse>(listOfFetchedPost, HttpStatus.OK);
 	} 
