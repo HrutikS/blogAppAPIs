@@ -29,13 +29,13 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-	
+	//to get authentication manager
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {	  
        return authenticationConfiguration.getAuthenticationManager();
 	}
 	
-	
+	//to encode & decode password
 	@Bean
 	protected PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

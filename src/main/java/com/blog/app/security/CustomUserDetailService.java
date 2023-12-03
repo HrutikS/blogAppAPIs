@@ -16,6 +16,7 @@ public class CustomUserDetailService implements UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	//to get credentials from database
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUserEmailId(username).orElseThrow(() -> new ResourceNotFoundException("User", "email", username));
