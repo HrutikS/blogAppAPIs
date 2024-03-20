@@ -26,6 +26,6 @@ public class BlogAppApplication implements CommandLineRunner{
 	//All this is to check if passwordEncoder is working.
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(passwordEncoder.encode("password"));
+		System.out.println("Encoded 'password' : "+passwordEncoder.encode("password"));
 	}
 }
