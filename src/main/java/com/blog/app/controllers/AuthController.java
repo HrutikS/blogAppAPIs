@@ -1,9 +1,11 @@
 package com.blog.app.controllers;
 
+import com.blog.app.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,9 +30,11 @@ public class AuthController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@PostMapping("/login")
-	public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest request){
+	public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest request) throws Exception {
 		
 		this.authenticate(request.getUsername(), request.getPassword());
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
@@ -40,12 +44,16 @@ public class AuthController {
 		return new ResponseEntity<JwtAuthResponse>(response, HttpStatus.OK);
 	}
 
-	private void authenticate(String username, String password) {
+	private void authenticate(String username, String password) throws Exception {
+
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-		authenticationManager.authenticate(authenticationToken);
-		// TODO
-		//For incorrect password, we get postman response as 401 Unauthorised.
-		//This could be resolved by putting the authenticate() in a try catch block.
+
+		try{
+			this.authenticationManager.authenticate(authenticationToken);
+		} catch (BadCredentialsException e) {
+			System.out.println("Invalid Details !!");
+			throw new ApiException("Invalid username or password !!");
+		}
 
 	}
 

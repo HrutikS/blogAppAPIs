@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
 		String requestHeader = request.getHeader("Authorization");
 		//Bearer 2352345235sdfrsfgsdfsdf
-		logger.info(" Header :  {}"+ requestHeader);
+		logger.info(" Header : "+ requestHeader);
 		String username = null;
 		String token = null;
 		if (requestHeader != null && requestHeader.startsWith("Bearer")) {
@@ -50,22 +50,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 				logger.info("Given jwt token is expired !!");
 				e.printStackTrace();
 			} catch (MalformedJwtException e) {
-				logger.info("Some changed has done in token !! Invalid Token");
+				logger.info("Some changes have been done to the token !! Invalid Token");
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-
 			}
-
-
 		} else {
 			logger.info("Invalid Header Value !! ");
 		}
 
-
 		//
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
 
 			//fetch user detail from username
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -77,16 +72,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
 			} else {
 				logger.info("Validation fails !!");
 			}
 
-
 		}
 
 		filterChain.doFilter(request, response);
-
 
 	}
 

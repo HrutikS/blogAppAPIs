@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,13 +20,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)	//since @EnableGlobalMethodSecurity is deprocated
 public class SecurityConfig {
 	
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	
 	@Autowired
-	private JwtAuthenticationFilter jwtAuthenticationFilter; 
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Spring Basic Authorization
 	//This will help set authentication to JavaScript based instead of HTML/form based.
@@ -41,7 +45,6 @@ public class SecurityConfig {
 //	}
 	
 	//Spring Jwt authorization
-	//Complete the jwt authorization as per spring 3.x 
 	@Bean
 	protected SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception{
 		http
