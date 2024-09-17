@@ -50,7 +50,7 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests((authz) -> authz
-					.requestMatchers("/api/v1/auth/login").permitAll()
+					.requestMatchers("/api/v1/auth/**").permitAll()
 					.anyRequest().authenticated())
 			.exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 			.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));	
