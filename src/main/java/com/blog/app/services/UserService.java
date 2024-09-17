@@ -5,6 +5,8 @@ import java.util.List;
 import com.blog.app.payloads.UserDto;
 
 public interface UserService {
+
+	UserDto registerUser(UserDto userDto);
 	
 	List<UserDto> getAllUsers();
 	

@@ -1,6 +1,8 @@
 package com.blog.app.controllers;
 
 import com.blog.app.exceptions.ApiException;
+import com.blog.app.payloads.UserDto;
+import com.blog.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,9 @@ public class AuthController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private UserService userService;
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@PostMapping("/login")
@@ -55,6 +60,19 @@ public class AuthController {
 			throw new ApiException("Invalid username or password !!");
 		}
 
+	}
+
+	/**
+	 * Register New User
+	 *
+	 * @param
+	 * */
+	@PostMapping("/register")
+	public  ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
+
+		UserDto registeredUser = userService.registerUser(userDto);
+
+		return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
 	}
 
 }
