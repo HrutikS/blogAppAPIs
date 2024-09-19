@@ -2,6 +2,7 @@ package com.blog.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,9 +18,11 @@ import com.blog.app.security.JwtAuthenticationEntryPoint;
 import com.blog.app.security.JwtAuthenticationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc	//in this case, added for Swagger
 @EnableMethodSecurity(prePostEnabled = true)	//since @EnableGlobalMethodSecurity is deprocated
 public class SecurityConfig {
 	
@@ -28,6 +31,15 @@ public class SecurityConfig {
 	
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	public static final String[] PUBLIC_URLS = {
+			"/api/v1/auth/**",
+			"/v3/api-docs",
+			"/v2/api-docs",
+			"/swagger-resources/**",
+			"/swagger-ui/**",
+			"/webjars/**"
+	};
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -50,16 +62,15 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests((authz) -> authz
-					.requestMatchers("/api/v1/auth/**").permitAll()
+					.requestMatchers(PUBLIC_URLS).permitAll()
+					.requestMatchers(HttpMethod.GET).permitAll()
 					.anyRequest().authenticated())
 			.exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 			.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));	
 			
 		http
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		
-			
-		
+
 		return http.build();
 	}
 
